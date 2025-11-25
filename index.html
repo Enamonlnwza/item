@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ติดตามสินค้า</title>
+    <link rel="stylesheet" href="styles/main.css">
+</head>
+<body>
+    <div id="root">
+        <!-- รูปภาพตรงกลาง -->
+        <img 
+            src="../../minori-chibi-project-sekai.gif" 
+            alt="Minori Chibi" 
+            id="centerImage"
+        />
+        <!-- ช่องค้นหาชื่อเฟส -->
+        <form id="searchForm">
+            <label for="facebookName">พิมพ์ชื่อ FB: - X:(ใส่@แอดด้วย): </label>
+            <input type="text" id="facebookName" name="facebookName" placeholder="กรอกชื่อเฟสบุ๊ค">
+            <button type="submit">ค้นหา</button>
+        </form>
+        <div id="searchResult"></div>
+    </div>
+    <!-- ปุ่มอิโมจิเม่นแคระที่มุมขวาบน -->
+    <button id="hedgehogBtn" aria-label="Admin access">🦔</button>
+    <script src="src/App.js" type="module"></script>
+    <script>
+        // Admin access hedgehog button
+        (function() {
+            const adminPassword = 'mizora2004';
+            const btn = document.getElementById('hedgehogBtn');
+            if(!btn) return;
+            btn.addEventListener('click', function() {
+                const attempt = prompt('กรุณากรอกรหัสเพื่อเข้าหน้าผู้ดูแล:');
+                if(attempt === null) return; // user cancelled
+                if(attempt === adminPassword) {
+                    // redirect to admin page
+                    window.location.href = 'admin.html';
+                } else {
+                    alert('รหัสไม่ถูกต้อง');
+                }
+            });
+        })();
+
+        document.getElementById('searchForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const name = document.getElementById('facebookName').value.trim();
+            if(name) {
+                window.location.href = `order-list.html?name=${encodeURIComponent(name)}`;
+            }
+        });
+    </script>
+</body>
+</html>
